@@ -26,8 +26,9 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
 }
-# darwin https://github.com/nix-darwin/nix-darwin/archive/nix-darwin-25.11.tar.gz
-# home-manager https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz
-# nixpkgs https://nixos.org/channels/nixpkgs-25.11-darwin#
+# curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+# sudo nix-channel --add https://github.com/nixos/nixpkgs/archive/nixpkgs-25.11.tar.gz nixpkgs
+# sudo nix-channel --add https://github.com/nix-darwin/nix-darwin/archive/nix-darwin-25.11.tar.gz darwin
+# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
 # nix-build '<darwin>' -A darwin-rebuild
 # sudo ./result/bin/darwin-rebuild switch -I darwin-config=/etc/nix-darwin/configuration.nix
