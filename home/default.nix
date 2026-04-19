@@ -16,9 +16,6 @@
       bindkey -e
       bindkey '^[[A' up-line-or-search
       bindkey '^[[B' down-line-or-search
-      #${pkgs.coreutils}/bin/dircolors
-      #bindkey '^A' beginning-of-line
-      #bindkey '^E' end-of-line
       eval "$(/opt/homebrew/bin/brew shellenv)"
       source <(op completion zsh)
     '';
@@ -40,16 +37,15 @@
       ip = "ip -br -c";
       sl = "ls";
       systemInstalled = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort | uniq";
-      installedall = "nix-store --query --requisites /run/current-system";
-      cleanup = "sudo nix-collect-garbage --delete-older-than 1d";
-      listgen = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-      nixformat = "nixformat () {  find . -type f -name '*.nix' -print -exec nixfmt \${@:-} -v {} ; ;}; nixformat";
-      yubisshagent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath  /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
+      installedAll = "nix-store --query --requisites /run/current-system";
+      nixCleanup = "sudo nix-collect-garbage --delete-older-than 1d";
+      nixListGen = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
+      nixFormat = "nixformat () {  find . -type f -name '*.nix' -print -exec alejandra \${@:-} -v {} ; ;}; nixFormat";
+      yubiSSHAgent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath  /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
     };
     #setOptions = [ "HIST_STAMPS='dd.mm.yyyy'" ];
     history = {
       #extended = true;
-      #ignoreAllDups = true;
       ignoreSpace = true;
       ignorePatterns = [
         "cd *"
@@ -191,7 +187,6 @@
       "diffEditor.ignoreTrimWhitespace" = false;
       "editor.cursorBlinking" = "smooth";
       "editor.cursorSmoothCaretAnimation" = "explicit";
-      #"editor.formatOnType" = true;
       "editor.lineNumbers" = "relative";
       "editor.linkedEditing" = true;
       "editor.minimap.renderCharacters" = false;
@@ -206,7 +201,6 @@
       "nix.enableLanguageServer" = true;
       "nix.formatterPath" = "alejandra";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-      #"nix.serverPath" = "nixd";
       "nix.serverSettings" = {
         nixd = {
           formatting = {
@@ -231,7 +225,6 @@
     sessionVariables = {
       EDITOR = "nvim";
       NIX_CONFIG = "experimental-features = nix-command flakes";
-      #NIX_PATH = "";
     };
     username = username;
     homeDirectory = "/Users/${username}";

@@ -8,6 +8,7 @@
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
+      kitty
       git
       nixd
       mas
@@ -44,10 +45,8 @@
     casks = [
       "protonvpn"
       "proton-drive"
-      #"obsidian"
-      #"alt-tab"
       "discord"
-
+      "alt-tab"
       # Development
       #"wireshark"
     ];
@@ -60,16 +59,6 @@
 
   nix = {
     enable = false;
-    #package = pkgs.nix;
-    #nixPath = ["nixpkgs=${pkgs.path}"];
-    #settings = {
-    #  auto-optimise-store = false;
-    #  experimental-features = [
-    #    "nix-command"
-    #    "flakes"
-    #  ];
-    #  trusted-users = [username];
-    #};
   };
 
   # Allow unfree packages
@@ -81,12 +70,6 @@
   # this is required if you want to use darwin's default shell - zsh
   programs = {
     zsh.enable = true;
-    #_1password = {
-    #  enable = true;
-    #};
-    #_1password-gui = {
-    #  enable = true;
-    #};
     # maybe useful : launchctl disable user/$(id -u)/com.openssh.ssh-agent
     ssh = {
       extraConfig = ''
@@ -137,7 +120,6 @@
 
       # customize trackpad
       trackpad = {
-        # tap, click
         Clicking = true; # enable tap to click
         TrackpadRightClick = true; # enable two finger right click
         TrackpadThreeFingerDrag = false; # enable three finger drag
@@ -185,9 +167,17 @@
       # All custom entries can be found by running `defaults read` command.
       # or `defaults read xxx` to read a specific domain.
       CustomUserPreferences = {
-        #"com.apple.Safari" = {
-        #  AutoOpenSafeDownloads = false;
-        #};
+        # Safari
+        "com.apple.Safari" = {
+          ## UI
+          ShowStatusBar = true;
+          ShowFullURLInSmartSearchField = true;
+
+          ## privacy
+          SendDoNotTrackHTTPHeader = true;
+          AutoOpenSafeDownloads = false;
+        };
+
         ".GlobalPreferences" = {
           # automatically switch to a new space when switching to the application
           AppleSpacesSwitchOnActivate = true;
@@ -239,10 +229,6 @@
         };
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
-        # Safari show url on hover
-        #"com.apple.Safari" = {
-        #  ShowStatusBar = true;
-        #};
         "com.apple.SoftwareUpdate" = {
           AutomaticCheckEnabled = true;
           # Check for software updates daily, not just once per week
