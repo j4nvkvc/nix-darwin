@@ -44,8 +44,7 @@
       cleanup = "sudo nix-collect-garbage --delete-older-than 1d";
       listgen = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixformat = "nixformat () {  find . -type f -name '*.nix' -print -exec nixfmt \${@:-} -v {} ; ;}; nixformat";
-      yubisshagent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && \
-          ssh-add -s $(realpath  /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
+      yubisshagent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath  /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
     };
     #setOptions = [ "HIST_STAMPS='dd.mm.yyyy'" ];
     history = {

@@ -10,9 +10,7 @@
     systemPackages = with pkgs; [
       git
       nixd
-      nil
       mas
-      kitty
       alejandra
       _1password-cli
     ];
@@ -37,16 +35,15 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
-      upgrade = true; # Upgrade outdated casks, formulae, and App Store apps
+      autoUpdate = false; # Fetch the newest stable branch of Homebrew's git repo
+      upgrade = false; # Upgrade outdated casks, formulae, and App Store apps
       # 'zap': uninstalls all formulae(and related files) not listed in the generated Brewfile
       cleanup = "zap";
     };
 
     casks = [
-      "adguard"
-      #"protonvpn"
-      #"proton-drive"
+      "protonvpn"
+      "proton-drive"
       #"obsidian"
       #"alt-tab"
       "discord"
@@ -63,16 +60,16 @@
 
   nix = {
     enable = false;
-    package = pkgs.nix;
-    nixPath = ["nixpkgs=${pkgs.path}"];
-    settings = {
-      auto-optimise-store = false;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-users = [username];
-    };
+    #package = pkgs.nix;
+    #nixPath = ["nixpkgs=${pkgs.path}"];
+    #settings = {
+    #  auto-optimise-store = false;
+    #  experimental-features = [
+    #    "nix-command"
+    #    "flakes"
+    #  ];
+    #  trusted-users = [username];
+    #};
   };
 
   # Allow unfree packages
@@ -84,12 +81,12 @@
   # this is required if you want to use darwin's default shell - zsh
   programs = {
     zsh.enable = true;
-    _1password = {
-      enable = true;
-    };
-    _1password-gui = {
-      enable = true;
-    };
+    #_1password = {
+    #  enable = true;
+    #};
+    #_1password-gui = {
+    #  enable = true;
+    #};
     # maybe useful : launchctl disable user/$(id -u)/com.openssh.ssh-agent
     ssh = {
       extraConfig = ''
