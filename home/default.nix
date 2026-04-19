@@ -40,13 +40,15 @@
       installedAll = "nix-store --query --requisites /run/current-system";
       nixCleanup = "sudo nix-collect-garbage --delete-older-than 1d";
       nixListGen = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-      nixFormat = "nixformat () {  find . -type f -name '*.nix' -print -exec alejandra \${@:-} -v {} ; ;}; nixFormat";
-      yubiSSHAgent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath  /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
+      nixFormat = "find . -type f -name '*.nix' -print -exec alejandra \${@:-} {} +";
+      rebuildSwitch = "sudo /etc/nix-darwin/result/bin/darwin-rebuild switch -I darwin-config=/etc/nix-darwin/configuration.nix";
+      yubiSSHAgent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
     };
     #setOptions = [ "HIST_STAMPS='dd.mm.yyyy'" ];
     history = {
       #extended = true;
       ignoreSpace = true;
+      share = true;
       ignorePatterns = [
         "cd *"
         "ls"
@@ -196,8 +198,6 @@
       "files.simpleDialog.enable" = true;
       "files.trimFinalNewlines" = true;
       "git.autofetch" = true;
-      "liveshare.allowGuestDebugControl" = true;
-      "liveshare.connectionMode" = "direct";
       "nix.enableLanguageServer" = true;
       "nix.formatterPath" = "alejandra";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
@@ -217,6 +217,7 @@
       "update.mode" = "none";
       "window.title" = "\${appName}\${separator}\${dirty}\${activeEditorShort}\${separator}\${rootName}\${separator}\${profileName}";
       "window.titleBarStyle" = "custom";
+
       "workbench.editorLargeFileConfirmation" = 10;
     };
   };
@@ -225,6 +226,8 @@
     sessionVariables = {
       EDITOR = "nvim";
       NIX_CONFIG = "experimental-features = nix-command flakes";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      MANROFFOPT = "-c";
     };
     username = username;
     homeDirectory = "/Users/${username}";
@@ -247,6 +250,7 @@
       nmap # A utility for network discovery and security auditing
 
       # misc
+      bat
       cowsay
       file
       which
