@@ -34,7 +34,12 @@
       "double-hyphen-option" = "fg=cyan";
     };
     shellAliases = {
-      ip = "ip -br -c";
+      ifconfig = "grc ifconfig";
+      ping = "grc ping";
+      traceroute = "grc traceroute";
+      dig = "grc dig";
+      df = "grc df";
+      rgrep = "rg";
       sl = "ls";
       systemInstalled = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort | uniq";
       installedAll = "nix-store --query --requisites /run/current-system";
@@ -167,16 +172,25 @@
   };
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      asciidoctor.asciidoctor-vscode
-      asvetliakov.vscode-neovim
-      eamodio.gitlens
-      editorconfig.editorconfig
-      jnoortheen.nix-ide
-      kamadorueda.alejandra
-      mads-hartmann.bash-ide-vscode
-      redhat.vscode-yaml
-    ];
+    profiles.default.extensions =
+      (with pkgs.vscode-extensions; [
+        asciidoctor.asciidoctor-vscode
+        asvetliakov.vscode-neovim
+        eamodio.gitlens
+        editorconfig.editorconfig
+        jnoortheen.nix-ide
+        kamadorueda.alejandra
+        mads-hartmann.bash-ide-vscode
+        redhat.vscode-yaml
+      ])
+      ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "nix-embedded-highlighter";
+          publisher = "atomicspirit";
+          version = "0.0.1";
+          sha256 = "sha256-KZfUaPjReHQH0XCCiejAs+0Go8WEeGiOuxjkTfSnku0=";
+        }
+      ]);
     profiles.default.userSettings = {
       "[nix]" = {
         "editor.defaultFormatter" = "jnoortheen.nix-ide";
@@ -253,6 +267,7 @@
       bat
       cowsay
       file
+      grc # generic colorized
       which
       tree
       gnused
