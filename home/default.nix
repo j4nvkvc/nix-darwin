@@ -134,6 +134,8 @@
       window_padding_width = 20;
       ihide_window_decorations = "titlebar-only";
       font_size = 16;
+      enable_audio_bell = "no";
+      #visual_bell_duration = 0.1; # chiant
     };
   };
   programs.git = {
