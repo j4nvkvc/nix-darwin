@@ -1,24 +1,25 @@
 {pkgs, ...}: let
-  username = "j4nvkvc";
-  useremail = "j4nvkvc@pm.me";
-  hostname = "pc";
+  userName = "j4nvkvc";
+  userEmail = "j4nvkvc@pm.me";
+  hostName = "pc";
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINybc/UadZaU/OFQ6dVS2l7+5GG4wzY6hfz098SynMbd";
 in {
   imports = [
     (import ./system {
       inherit
         pkgs
-        username
-        useremail
-        hostname
+        userName
+        userEmail
+        hostName
         ;
     })
     <home-manager/nix-darwin>
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = false;
-      home-manager.extraSpecialArgs = {inherit pkgs username useremail hostname;};
+      home-manager.extraSpecialArgs = {inherit pkgs userName userEmail hostName signingKey;};
       home-manager.backupFileExtension = "backup";
-      home-manager.users.${username} = import ./home;
+      home-manager.users.${userName} = import ./home;
     }
   ];
 }

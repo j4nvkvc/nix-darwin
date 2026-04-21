@@ -1,7 +1,7 @@
 {
   pkgs,
-  username,
-  hostname,
+  userName,
+  hostName,
   ...
 }: {
   environment = {
@@ -52,8 +52,8 @@
   };
 
   networking = {
-    hostName = hostname;
-    computerName = hostname;
+    hostName = hostName;
+    computerName = hostName;
   };
 
   nix = {
@@ -86,13 +86,13 @@
   };
 
   system = {
-    primaryUser = "${username}";
+    primaryUser = "${userName}";
 
     stateVersion = 5;
 
     defaults = {
       menuExtraClock.Show24Hour = true; # show 24 hour clock
-      smb.NetBIOSName = hostname;
+      smb.NetBIOSName = hostName;
       # customize dock
       dock = {
         autohide = false;
@@ -194,7 +194,7 @@
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
           # Set home directory as startup window
-          NewWindowTargetPath = "file:///Users/${username}/";
+          NewWindowTargetPath = "file:///Users/${userName}/";
           NewWindowTarget = "PfHm";
           # Multi-file tab view
           FinderSpawnTab = true;
@@ -265,8 +265,8 @@
   };
   time.timeZone = "Europe/Paris";
 
-  users.users."${username}" = {
-    home = "/Users/${username}";
-    description = username;
+  users.users."${userName}" = {
+    home = "/Users/${userName}";
+    description = userName;
   };
 }

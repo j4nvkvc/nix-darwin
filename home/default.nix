@@ -1,7 +1,8 @@
 {
   pkgs,
-  username,
-  useremail,
+  userName,
+  userEmail,
+  signingKey,
   ...
 }: {
   programs.zsh = {
@@ -143,12 +144,12 @@
     signing = {
       format = "ssh";
       signByDefault = true;
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINybc/UadZaU/OFQ6dVS2l7+5GG4wzY6hfz098SynMbd";
+      key = signingKey;
     };
 
     settings = {
-      user.email = useremail;
-      user.name = username;
+      user.email = userEmail;
+      user.name = userName;
       url = {
         "git@github.com:" = {
           insteadOf = [
@@ -247,8 +248,8 @@
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       MANROFFOPT = "-c";
     };
-    username = username;
-    homeDirectory = "/Users/${username}";
+    username = userName;
+    homeDirectory = "/Users/${userName}";
     stateVersion = "24.05";
     packages = with pkgs; [
       # archives
