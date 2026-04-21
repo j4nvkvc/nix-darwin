@@ -5,8 +5,6 @@
   ...
 }: {
   environment = {
-    # List packages installed in system profile. To search by name, run:
-    # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
       kitty
       git
@@ -47,6 +45,7 @@
       "proton-drive"
       "discord"
       "alt-tab"
+      "anythingllm"
       # Development
       #"wireshark"
     ];

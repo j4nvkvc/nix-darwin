@@ -174,8 +174,10 @@
   };
   programs.vscode = {
     enable = true;
-    profiles.default.extensions =
-      (with pkgs.vscode-extensions; [
+    # fucking shit:
+    # rm -rf ~/.vscode
+    profiles.default.extensions = with pkgs.vscode-extensions;
+      [
         asciidoctor.asciidoctor-vscode
         asvetliakov.vscode-neovim
         eamodio.gitlens
@@ -184,15 +186,15 @@
         kamadorueda.alejandra
         mads-hartmann.bash-ide-vscode
         redhat.vscode-yaml
-      ])
-      ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "nix-embedded-highlighter";
           publisher = "atomicspirit";
           version = "0.0.1";
           sha256 = "sha256-KZfUaPjReHQH0XCCiejAs+0Go8WEeGiOuxjkTfSnku0=";
         }
-      ]);
+      ];
     profiles.default.userSettings = {
       "[nix]" = {
         "editor.defaultFormatter" = "jnoortheen.nix-ide";
@@ -282,6 +284,7 @@
 
       # productivity
       glow # markdown previewer in terminal
+      ollama
     ];
   };
 }
