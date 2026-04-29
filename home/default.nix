@@ -47,6 +47,7 @@
       nixCleanup = "sudo nix-collect-garbage --delete-older-than 1d";
       nixListGen = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixFormat = "find . -type f -name '*.nix' -print -exec alejandra \${@:-} {} +";
+      history = "history 1";
       rebuildSwitch = "sudo /etc/nix-darwin/result/bin/darwin-rebuild switch -I darwin-config=/etc/nix-darwin/configuration.nix";
       yubiSSHAgent = "eval $(ssh-agent -P $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)) && ssh-add -s $(realpath /run/current-system/sw/lib/pkcs11/opensc-pkcs11.so)";
     };
@@ -195,6 +196,18 @@
           version = "0.0.1";
           sha256 = "sha256-KZfUaPjReHQH0XCCiejAs+0Go8WEeGiOuxjkTfSnku0=";
         }
+        {
+          name = "shades-of-purple";
+          publisher = "ahmadawais";
+          version = "7.3.6";
+          sha256 = "sha256-22ZywGew1Qh4YPi51JWTNQLKuz/nzx/iprUK96DQfYU=";
+        }
+        {
+          name = "matrix-theme";
+          publisher = "ustymukhman";
+          version = "0.1.3";
+          sha256 = "sha256-JKjtB2zoiAv1igTTKapLVfps1CbvjIOLYXb2hLlhLRA=";
+        }
       ];
     profiles.default.userSettings = {
       "[nix]" = {
@@ -236,7 +249,7 @@
       "update.mode" = "none";
       "window.title" = "\${appName}\${separator}\${dirty}\${activeEditorShort}\${separator}\${rootName}\${separator}\${profileName}";
       "window.titleBarStyle" = "custom";
-
+      "workbench.colorTheme" = "Shades of Purple (Super Dark)";
       "workbench.editorLargeFileConfirmation" = 10;
     };
   };
